@@ -34,6 +34,7 @@ export default function Banner() {
               width={1200}
               height={390}
               className="w-full h-auto"
+              priority
             />
           </Link>
         </SwiperSlide>

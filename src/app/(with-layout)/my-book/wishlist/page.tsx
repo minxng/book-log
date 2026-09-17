@@ -1,9 +1,9 @@
 "use client";
+import BookCoverImage from "@/components/BookCoverImage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ReviewButton from "@/components/ReviewButton";
 import { useAuth } from "@/hooks/useAuth";
 import { removeWishListItem, subscribeToWishList } from "@/lib/api/firebase";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -42,16 +42,14 @@ export default function WishList() {
             찜한 도서가 없습니다.
           </p>
         )}
-        {wishList.map((book) => (
+        {wishList.map((book, idx) => (
           <li key={book.id} className="flex flex-col gap-2">
             <div className="relative w-full aspect-2/3">
               <Link href={`/book/${book.isbn13}`}>
-                <Image
+                <BookCoverImage
                   src={book.cover}
-                  alt="표지"
-                  fill
-                  sizes=""
-                  className="object-contain hover:scale-[1.02] hover:shadow-lg transition-transform"
+                  priority={idx < 4}
+                  imageClassName="hover:scale-[1.02] hover:shadow-lg transition-transform"
                 />
               </Link>
             </div>

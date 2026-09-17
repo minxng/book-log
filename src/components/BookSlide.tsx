@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
@@ -9,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Scrollbar } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import BookCoverImage from "./BookCoverImage";
 
 interface BookItem {
   itemId: string;
@@ -60,16 +60,14 @@ export default function BookSlide({ books, title, type }: Book) {
             },
           }}
         >
-          {books.item.map((book) => (
+          {books.item.map((book, idx) => (
             <SwiperSlide key={book.itemId}>
               <Link href={`/book/${book.isbn13}`}>
                 <div className="relative w-full aspect-170/240">
-                  <Image
+                  <BookCoverImage
                     src={book.cover.replace("cover200", "cover500")}
-                    alt="book cover"
-                    className="w-full h-full object-contain hover:scale-[1.02] hover:shadow-lg transition-transform"
-                    fill
-                    sizes="true"
+                    priority={idx < 4}
+                    imageClassName="hover:scale-[1.02] hover:shadow-lg transition-transform"
                   />
                 </div>
                 <div className="flex mt-2 sm:mt-4 gap-1">

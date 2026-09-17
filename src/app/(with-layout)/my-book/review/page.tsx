@@ -1,5 +1,6 @@
 "use client";
 
+import BookCoverImage from "@/components/BookCoverImage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Rating from "@/components/Rating";
 import ReviewModal from "@/components/ReviewModal";
@@ -11,7 +12,6 @@ import {
   updateReview,
   writeReview,
 } from "@/lib/api/firebase";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 
@@ -75,7 +75,7 @@ export default function ReviewList() {
   const openReviewModal = (
     book: ReviewItem,
     selectedReview?: { review: string; rating: number },
-    commentId?: string
+    commentId?: string,
   ) => {
     if (commentId && selectedReview) {
       setCommentId(commentId);
@@ -119,19 +119,13 @@ export default function ReviewList() {
       <ul className="mt-4 px-4">
         {!loading &&
           reviewList &&
-          reviewList.map((book) => (
+          reviewList.map((book, idx) => (
             <li
               key={book.id}
               className="grid grid-cols-[max-content_1fr] gap-4 py-6 first:pt-0 border-b border-gray-200 justify-center"
             >
               <div className="sm:w-[200px] w-[120px] row-start-1 row-end-3 sm:row-end-4 col-start-1 col-end-2">
-                <Image
-                  src={book.cover}
-                  alt="cover"
-                  width={200}
-                  height={200}
-                  className="w-full"
-                />
+                <BookCoverImage src={book.cover} priority={idx < 4} />
               </div>
               <div className="flex flex-col sm:flex-row justify-between row-start-1 row-end-3 sm:row-end-2 col-start-2 col-end-3 items-start">
                 <div>
@@ -171,7 +165,7 @@ export default function ReviewList() {
                           openReviewModal(
                             book,
                             { review: comment.review, rating: book.rating },
-                            commentKey
+                            commentKey,
                           )
                         }
                       >

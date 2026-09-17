@@ -1,8 +1,8 @@
 "use client";
 
 import he from "he";
-import Image from "next/image";
 import Link from "next/link";
+import BookCoverImage from "./BookCoverImage";
 import InfoButton from "./InfoButton";
 import ReviewButton from "./ReviewButton";
 import WishButton from "./WishButton";
@@ -30,19 +30,16 @@ interface BooksProps {
 export default function BookList({ books }: BooksProps) {
   return (
     <ul className="mt-6 sm:mt-0">
-      {books.item.map((book) => (
+      {books.item.map((book, idx) => (
         <li
           key={book.itemId}
           className="flex sm:flex-nowrap flex-wrap sm:items-start items-center gap-4 sm:gap-8  border-b-primary-200 border-b py-8 first:pt-0 justify-center sm:justify-baseline"
         >
           <Link href={`/book/${book.isbn13}`}>
             <div className="sm:basis-1/5 w-[200px] sm:w-[120px]">
-              <Image
+              <BookCoverImage
                 src={book.cover.replace("cover200", "cover500")}
-                alt="표지지"
-                className="w-full"
-                width={200}
-                height={200}
+                priority={idx < 4}
               />
             </div>
           </Link>
