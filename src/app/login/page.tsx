@@ -17,14 +17,20 @@ export default function Login() {
     }
     if (!result.success) {
       alert(
-        "등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력했습니다."
+        "등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력했습니다.",
       );
     }
   };
   return (
     <section className="h-lvh sm:bg-gray-50 flex items-center">
       <div className="w-96 mx-auto sm:border border-primary-200 rounded-2xl px-8 pb-12 bg-white">
-        <Image src={logo} alt="logo" width={200} className="mx-auto my-12" />
+        <Image
+          src={logo}
+          alt="logo"
+          width={200}
+          priority
+          className="mx-auto my-12"
+        />
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <Input
             type="text"
